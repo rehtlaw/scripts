@@ -1,3 +1,6 @@
+# Put this file into your profile's folder (the same one containing favorites.txt) and run it.
+# It will back up the original file in case something goes horribly wrong.
+
 import os
 
 
