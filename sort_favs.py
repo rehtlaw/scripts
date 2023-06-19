@@ -1,7 +1,5 @@
-# Put this file into your profile's folder (the same one containing favorites.txt) and run it.
-# It will back up the original file in case something goes horribly wrong.
-
 import os
+from typing import List
 
 
 class Line:
@@ -15,12 +13,25 @@ class Line:
 
 
 def cut_out_the_bs(input: str):
+    # not very nice way to get rid of the months in THC but it'll do
+    months: List[str] = ["1 jan", "2 feb", "3 mar", "4 apr", "5 may", "6 jun",
+                         "7 jul", "8 aug", "9 sep", "10 oct", "11 nov", "12 dec"]
     folder_name = input.split("/", 1)[1].lower()
-    no_brackets = folder_name[folder_name.index(
-        "]") + 1:] if folder_name.startswith("[") else folder_name
+    no_thc_month = ""
+    m: str
+    for m in months:
+        if m in folder_name:
+            no_thc_month = folder_name[len(m) + 3:]
+            break
+        else:
+            no_thc_month = folder_name
+    no_brackets = no_thc_month[no_thc_month.index(
+        "]") + 1:] if no_thc_month.startswith("[") else no_thc_month
     no_parens = no_brackets[no_brackets.index(
         ")") + 1:] if no_brackets.startswith("(") else no_brackets
-    fixed_input = no_parens.lstrip()
+    no_dashes = no_parens[no_parens.index(
+        "-") + 1:] if no_parens.startswith("-") else no_parens
+    fixed_input = no_dashes.lstrip()
     return fixed_input
 
 
