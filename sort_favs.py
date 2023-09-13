@@ -25,13 +25,18 @@ def cut_out_the_bs(input: str):
             break
         else:
             no_thc_month = folder_name
-    no_brackets = no_thc_month[no_thc_month.index(
-        "]") + 1:] if no_thc_month.startswith("[") else no_thc_month
-    no_parens = no_brackets[no_brackets.index(
-        ")") + 1:] if no_brackets.startswith("(") else no_brackets
+    no_jayce = no_thc_month[13:] if no_thc_month.startswith("(-[jayce]-) -") else no_thc_month 
+    no_parens = no_jayce[no_jayce.index(
+        ")") + 1:] if no_jayce.startswith("(") and not no_jayce.endswith(")") else no_jayce
     no_dashes = no_parens[no_parens.index(
-        "-") + 1:] if no_parens.startswith("-") else no_parens
-    fixed_input = no_dashes.lstrip()
+        "-") + 1:] if no_parens.startswith("-") and not no_parens.endswith("-") else no_parens
+    no_brackets = no_dashes[no_dashes.index(
+        "]") + 1:] if no_dashes.startswith("[") and not no_dashes.endswith("]") else no_dashes
+    no_brackets = no_brackets.lstrip()
+    no_brackets2 = no_brackets[no_brackets.index(
+        "]") + 1:] if no_brackets.startswith("[") and not no_brackets.endswith("]") else no_brackets
+    fixed_input = no_brackets2.lstrip()
+
     return fixed_input
 
 
